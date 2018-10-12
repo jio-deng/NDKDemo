@@ -17,4 +17,10 @@ public class DzNDK {
 
     //对文件进行解密
     public static native String decryptFile(String encryptPath, String decryptPath, String password);
+
+    //分割文件
+    public static native String fileSplit(String splitFilePath, String suffix, int fileNum);
+
+    //合并文件
+    public static native String fileMerge(String splitFilePath, String newFilePath, String splitSuffix, String mergeSuffix, int fileNum);
 }

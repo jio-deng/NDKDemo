@@ -74,14 +74,36 @@ public class DoFileActivity extends AppCompatActivity implements View.OnClickLis
      * 文件分割
      */
     private void fileSegment() {
+        String splitFilePath = sdCardPath + File.separatorChar + "my_doc.docx";
+        String suffix = ".dz";
+        Log.d(TAG, "fileSegment: splitFilePath = " + splitFilePath + ", suffix = " + suffix);
 
+        try {
+            String msg = DzNDK.fileSplit(splitFilePath, suffix, 4);
+            mTvShowMsg.setText(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "fileSegment: sth is wrong in Java_com_dengzm_ndkdemo_ndk_DzNDK_fileSplit");
+        }
     }
 
     /**
      * 文件合并
      */
     private void fileCombine() {
+        String splitFilePath = sdCardPath + File.separatorChar + "my_doc.docx";
+        String newFilePath = sdCardPath + File.separatorChar + "my_doccc.docx";
+        String splitSuffix = ".dz";
+        String mergeSuffix = ".png";
+        Log.d(TAG, "fileCombine: splitFilePath = " + splitFilePath + ", suffix = " + splitSuffix + ", mergeSuffix = " + mergeSuffix);
 
+        try {
+            String msg = DzNDK.fileMerge(splitFilePath, newFilePath, splitSuffix, mergeSuffix, 4);
+            mTvShowMsg.setText(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "fileCombine: sth is wrong in Java_com_dengzm_ndkdemo_ndk_DzNDK_fileMerge");
+        }
     }
 
     @Override
