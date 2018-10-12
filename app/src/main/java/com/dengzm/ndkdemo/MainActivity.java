@@ -1,15 +1,14 @@
 package com.dengzm.ndkdemo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.dengzm.ndkdemo.ndk.DzNDK;
 
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
+        TextView tv = findViewById(R.id.sample_text);
+        tv.setText(DzNDK.sayHelloNDK());
+
+        findViewById(R.id.btn_do_file).setOnClickListener(this);
     }
 
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
-    public native String sayHelloNDK();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_do_file:
+                startActivity(new Intent(this, DoFileActivity.class));
+                break;
+        }
+    }
 }
